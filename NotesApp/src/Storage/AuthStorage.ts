@@ -17,3 +17,29 @@ export const saveUsers = async (users: User[]) => {
 };
 
 // Register a new user
+export const registerUser = async (user: User) => {
+    const users = await getUsers();
+
+    const existingUser = users.find(
+        (item) => item.email === user.email
+    );
+
+    if (existingUser) {
+        throw new Error('Email already registered');
+    }
+
+    users.push(user);
+
+    await saveUsers(users);
+};
+
+// Login an existing user
+export const loginUser = async (email: string, password: string) => {
+    const users = await getUsers();
+
+    const user = users.find(
+        (item) => item.email === email && item.password === password
+    );
+
+    return user || null;
+};
