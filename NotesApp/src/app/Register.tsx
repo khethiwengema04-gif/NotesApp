@@ -12,6 +12,8 @@ import { useRouter } from 'expo-router';
 import { useAuth } from '../Context/AuthContext';
 import { User } from '../Types/User';
 
+
+
 export default function Register() {
 
     const router = useRouter();
@@ -92,7 +94,7 @@ export default function Register() {
 
                 <Text
                     style={styles.link}
-                    onPress={() => router.push('/login')}
+                    onPress={() => router.push('/Login')}
                 >
                     Login
                 </Text>
