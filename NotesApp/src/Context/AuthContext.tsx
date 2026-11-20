@@ -1,7 +1,13 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User } from '../Types/User';
-import { registerUser, loginUser, getSession, saveSession, removeSession } from '../Storage/AuthStorage';
+import {
+    registerUser,
+    loginUser,
+    getSession,
+    saveSession,
+    removeSession
+} from '../Storage/AuthStorage';
 
 interface AuthContextType {
     user: User | null;
@@ -21,9 +27,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // Check if a user is already logged in
     useEffect(() => {
         const checkUser = async () => {
-            const savedUser = await getSession();
-            setUser(savedUser);
-            setLoading(false);
+            try {
+                const savedUser = await getSession();
+                setUser(savedUser);
+            } catch (error) {
+                console.log('Could not load user session:', error);
+            } finally {
+                setLoading(false);
+            }
         };
 
         checkUser();
