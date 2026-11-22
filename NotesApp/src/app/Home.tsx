@@ -79,6 +79,14 @@ export default function Home() {
             new Date(a.dateAdded).getTime();
     });
 
+    // Open a category page
+    const openCategory = (category: string) => {
+        router.push({
+            pathname: '/[category]',
+            params: { category }
+        });
+    };
+
     // Logout
     const handleLogout = async () => {
         await logout();
@@ -107,6 +115,32 @@ export default function Home() {
             >
                 <Text style={styles.addButtonText}>+ Add New Note</Text>
             </TouchableOpacity>
+
+            {/* Category buttons */}
+            <Text style={styles.sectionTitle}>My Categories</Text>
+
+            <View style={styles.categoryButtons}>
+                <TouchableOpacity
+                    style={styles.categoryButton}
+                    onPress={() => openCategory('Work')}
+                >
+                    <Text style={styles.categoryButtonText}>Work</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.categoryButton}
+                    onPress={() => openCategory('Study')}
+                >
+                    <Text style={styles.categoryButtonText}>Study</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.categoryButton}
+                    onPress={() => openCategory('Personal')}
+                >
+                    <Text style={styles.categoryButtonText}>Personal</Text>
+                </TouchableOpacity>
+            </View>
 
             {/* Search bar */}
             <TextInput
@@ -250,11 +284,34 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 10,
         alignItems: 'center',
-        marginBottom: 15
+        marginBottom: 20
     },
     addButtonText: {
         color: '#FFFFFF',
         fontSize: 16,
+        fontWeight: 'bold'
+    },
+    sectionTitle: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        color: '#243B55',
+        marginBottom: 10
+    },
+    categoryButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        gap: 8,
+        marginBottom: 20
+    },
+    categoryButton: {
+        flex: 1,
+        backgroundColor: '#526D9B',
+        paddingVertical: 12,
+        borderRadius: 8,
+        alignItems: 'center'
+    },
+    categoryButtonText: {
+        color: '#FFFFFF',
         fontWeight: 'bold'
     },
     searchInput: {
