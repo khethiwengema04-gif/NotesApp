@@ -107,6 +107,13 @@ export default function Home() {
                 <TouchableOpacity onPress={handleLogout}>
                     <Text style={styles.logout}>Logout</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.profileButton}
+                    onPress={() => router.push('/Profile')}
+                >
+                    <Text style={styles.profileButtonText}>My Profile</Text>
+                </TouchableOpacity>
             </View>
 
             <TouchableOpacity
