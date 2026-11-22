@@ -6,7 +6,8 @@ import {
     loginUser,
     getSession,
     saveSession,
-    removeSession
+    removeSession,
+    updateUser
 } from '../Storage/AuthStorage';
 
 interface AuthContextType {
@@ -15,6 +16,7 @@ interface AuthContextType {
     register: (user: User) => Promise<void>;
     login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
+    updateProfile: (updatedUser: User) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -59,6 +61,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(loggedInUser);
     };
 
+    // Update a user's profile
+    const updateProfile = async (updatedUser: User) => {
+        const savedUser = await updateUser(updatedUser);
+
+        await saveSession(savedUser);
+        setUser(savedUser);
+    };
+
     // Logout a user
     const logout = async () => {
         await removeSession();
@@ -66,7 +76,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, register, login, logout }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                register,
+                login,
+                logout,
+                updateProfile
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
