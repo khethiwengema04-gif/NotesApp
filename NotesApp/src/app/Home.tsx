@@ -286,6 +286,20 @@ const styles = StyleSheet.create({
         color: '#526D9B',
         fontWeight: 'bold'
     },
+
+    profileButton: {
+        backgroundColor: '#526D9B',
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginBottom: 10
+    },
+
+    profileButtonText: {
+        color: '#FFFFFF',
+        fontSize: 15,
+        fontWeight: 'bold'
+    },
     addButton: {
         backgroundColor: '#526D9B',
         padding: 16,
