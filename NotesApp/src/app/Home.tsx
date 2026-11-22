@@ -5,9 +5,9 @@ import {
     Text,
     TouchableOpacity,
     StyleSheet,
-    FlatList,
-    Alert
+    FlatList
 } from 'react-native';
+
 import { useRouter, useFocusEffect } from 'expo-router';
 import { useAuth } from '../Context/AuthContext';
 import { getNotes, deleteNote } from '../Storage/NoteStorage';
@@ -22,13 +22,17 @@ export default function Home() {
 
     // Load the logged-in user's notes
     const loadNotes = async () => {
-        const allNotes = await getNotes();
+        try {
+            const allNotes = await getNotes();
 
-        const userNotes = allNotes.filter(
-            (note) => note.userId === user?.id
-        );
+            const userNotes = allNotes.filter(
+                (note) => note.userId === user?.id
+            );
 
-        setNotes(userNotes);
+            setNotes(userNotes);
+        } catch (error) {
+            console.log('Error loading notes:', error);
+        }
     };
 
     // Refresh notes whenever Home opens
@@ -39,25 +43,18 @@ export default function Home() {
     );
 
     // Delete a note
-    const handleDelete = (id: string) => {
-        Alert.alert(
-            'Delete Note',
-            'Are you sure you want to delete this note?',
-            [
-                {
-                    text: 'Cancel',
-                    style: 'cancel'
-                },
-                {
-                    text: 'Delete',
-                    style: 'destructive',
-                    onPress: async () => {
-                        await deleteNote(id);
-                        loadNotes();
-                    }
-                }
-            ]
-        );
+    const handleDelete = async (id: string) => {
+        try {
+            await deleteNote(id);
+
+            // Remove the deleted note from the screen
+            setNotes((currentNotes) =>
+                currentNotes.filter((note) => note.id !== id)
+            );
+
+        } catch (error) {
+            console.log('Error deleting note:', error);
+        }
     };
 
     // Logout
@@ -119,11 +116,26 @@ export default function Home() {
                                 Added: {new Date(item.dateAdded).toLocaleDateString()}
                             </Text>
 
-                            <TouchableOpacity
-                                onPress={() => handleDelete(item.id)}
-                            >
-                                <Text style={styles.deleteButton}>Delete Note</Text>
-                            </TouchableOpacity>
+                            <View style={styles.noteActions}>
+                                <TouchableOpacity
+                                    onPress={() => router.push({
+                                        pathname: '/EditNote',
+                                        params: { id: item.id }
+                                    })}
+                                >
+                                    <Text style={styles.editButton}>
+                                        Edit Note
+                                    </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity
+                                    onPress={() => handleDelete(item.id)}
+                                >
+                                    <Text style={styles.deleteButton}>
+                                        Delete Note
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
 
                         </View>
                     )}
@@ -219,5 +231,14 @@ const styles = StyleSheet.create({
     deleteButton: {
         color: '#D9534F',
         fontWeight: 'bold'
-    }
+    },
+    noteActions: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 5
+    },
+    editButton: {
+        color: '#526D9B',
+        fontWeight: 'bold'
+    },
 });
