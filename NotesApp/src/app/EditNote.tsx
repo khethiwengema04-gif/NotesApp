@@ -150,3 +150,79 @@ export default function EditNote() {
     );
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 25,
+        backgroundColor: '#F8F9FC'
+    },
+    heading: {
+        fontSize: 27,
+        fontWeight: 'bold',
+        color: '#243B55',
+        marginBottom: 25
+    },
+    label: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#243B55',
+        marginBottom: 10
+    },
+    input: {
+        backgroundColor: '#FFFFFF',
+        padding: 15,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#DDD',
+        marginBottom: 20
+    },
+    textArea: {
+        backgroundColor: '#FFFFFF',
+        padding: 15,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#DDD',
+        height: 150,
+        marginBottom: 20
+    },
+    categories: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 30
+    },
+    categoryButton: {
+        paddingVertical: 12,
+        paddingHorizontal: 18,
+        borderRadius: 20,
+        backgroundColor: '#E5EAF2'
+    },
+    selectedCategory: {
+        backgroundColor: '#526D9B'
+    },
+    categoryText: {
+        color: '#243B55',
+        fontWeight: 'bold'
+    },
+    selectedText: {
+        color: '#FFFFFF'
+    },
+    saveButton: {
+        backgroundColor: '#526D9B',
+        padding: 16,
+        borderRadius: 10,
+        alignItems: 'center'
+    },
+    saveButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    cancelButton: {
+        padding: 15,
+        alignItems: 'center'
+    },
+    cancelText: {
+        color: '#526D9B',
+        fontWeight: 'bold'
+    }
+});
