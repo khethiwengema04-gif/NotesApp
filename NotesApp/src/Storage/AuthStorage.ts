@@ -22,7 +22,7 @@ export const registerUser = async (user: User) => {
     const users = await getUsers();
 
     const existingUser = users.find(
-        (item) => item.email === user.email
+        (item) => item.email.toLowerCase() === user.email.toLowerCase()
     );
 
     if (existingUser) {
@@ -39,10 +39,37 @@ export const loginUser = async (email: string, password: string) => {
     const users = await getUsers();
 
     const user = users.find(
-        (item) => item.email === email && item.password === password
+        (item) =>
+            item.email.toLowerCase() === email.toLowerCase() &&
+            item.password === password
     );
 
     return user || null;
+};
+
+// Update an existing user's profile
+export const updateUser = async (updatedUser: User): Promise<User> => {
+    const users = await getUsers();
+
+    // Check whether another user is already using this email
+    const existingUser = users.find(
+        (item) =>
+            item.email.toLowerCase() === updatedUser.email.toLowerCase() &&
+            item.id !== updatedUser.id
+    );
+
+    if (existingUser) {
+        throw new Error('This email is already registered');
+    }
+
+    // Replace the old user details with the updated details
+    const updatedUsers = users.map((item) =>
+        item.id === updatedUser.id ? updatedUser : item
+    );
+
+    await saveUsers(updatedUsers);
+
+    return updatedUser;
 };
 
 // Save the logged-in user
