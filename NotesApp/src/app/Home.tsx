@@ -278,7 +278,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: 10
     },
-
+    sortButton: {
+        paddingVertical: 9,
+        paddingHorizontal: 14,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#526D9B',
+        backgroundColor: '#FFFFFF'
+    },
     activeSortButton: {
         backgroundColor: '#526D9B'
     },
