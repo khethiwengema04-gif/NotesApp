@@ -208,7 +208,15 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold'
     },
-
+    searchInput: {
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderColor: '#E1E5EC',
+        borderRadius: 10,
+        padding: 14,
+        fontSize: 15,
+        marginBottom: 20
+    },
     emptyContainer: {
         flex: 1,
         justifyContent: 'center',
