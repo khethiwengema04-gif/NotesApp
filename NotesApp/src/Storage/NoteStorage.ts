@@ -40,7 +40,9 @@ export const updateNote = async (updatedNote: Note) => {
 export const deleteNote = async (id: string) => {
     const notes = await getNotes();
 
-    const updatedNotes = notes.filter((note) => note.id !== id);
+    const updatedNotes = notes.filter(
+        (note) => note.id !== id
+    );
 
     await saveNotes(updatedNotes);
 };
