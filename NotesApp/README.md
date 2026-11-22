@@ -1,56 +1,108 @@
-# Welcome to your Expo app 👋
+ 
+# NotesApp
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Project Overview
 
-## Get started
+NotesApp is a mobile application developed using React Native and TypeScript. The application allows users to create, manage, organise and search their personal notes.
 
-1. Install dependencies
+Users can register an account, log in, manage their profiles and perform different operations on their notes. The application uses AsyncStorage to store user information and notes locally on the device.
 
-   ```bash
-   npm install
-   ```
+The main purpose of this project is to develop a simple and user-friendly note-taking application while practising mobile application development, authentication, data storage and CRUD operations.
 
-2. Start the app
+## Project Objectives
 
-   ```bash
-   npx expo start
-   ```
+The objectives of this project are to:
 
-In the output, you'll find options to open the app in a
+- Develop a functional mobile note-taking application.
+- Allow users to register and log in securely within the application.
+- Implement protected routing to restrict access to certain screens.
+- Allow users to create, view, update and delete notes.
+- Organise notes into different categories.
+- Implement a search feature to find notes easily.
+- Allow users to sort notes according to their creation dates.
+- Use local storage to save user information and notes.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Features
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### 1. User Authentication
 
-## Get a fresh project
+The application provides user authentication features that allow users to:
 
-When you're ready, run:
+- Register using a username, email address and password.
+- Log in using their registered email and password.
+- Log out of their accounts.
+- Maintain their login session using AsyncStorage.
 
-```bash
-npm run reset-project
-```
+### 2. Protected Routing
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+The application uses protected routing to control access to screens.
 
-### Other setup steps
+- Users who are not logged in are redirected to the Login screen.
+- Logged-in users cannot access the Login or Register screens.
+- Only authenticated users can access the main application features.
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+### 3. Profile Management
 
-## Learn more
+Users can manage their account information through the Profile screen.
 
-To learn more about developing your project with Expo, look at the following resources:
+They can:
+- View their username and email address.
+- Update their username.
+- Change their email address.
+- Change their password.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 4. Notes Management (CRUD Operations)
 
-## Join the community
+The application supports CRUD operations, which include:
 
-Join our community of developers creating universal apps.
+- **Create:** Users can add new notes.
+- **Read:** Users can view their saved notes.
+- **Update:** Users can edit existing notes.
+- **Delete:** Users can remove notes they no longer need.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Each note contains information such as:
+- Title (optional).
+- Note content.
+- Category.
+- Date added.
+- Date edited.
+
+### 5. Categories
+
+Users can organise their notes into three categories:
+
+- Work
+- Study
+- Personal
+
+Each category has its own page where users can view notes belonging to that category.
+
+### 6. Search Notes
+
+The application includes a search feature that allows users to find notes by entering keywords.
+
+The search checks the note titles and content to help users find information quickly.
+
+### 7. Sort Notes
+
+Users can organise their notes according to their creation dates.
+
+The available sorting options are:
+- Newest First – displays the most recently added notes first.
+- Oldest First – displays the earliest added notes first.
+
+## Technologies Used
+
+The following technologies and tools were used to develop this application:
+React Native
+TypeScript 
+Expo
+Expo Router
+
+## Project initiation used commands
+
+## Running the application
+npx expo start
+
+## Github link
+https://github.com/khethiwengema04-gif/NotesApp.git
