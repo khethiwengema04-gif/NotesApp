@@ -3,6 +3,7 @@ import React, { useState, useCallback } from 'react';
 import {
     View,
     Text,
+    TextInput,
     TouchableOpacity,
     StyleSheet,
     FlatList
@@ -19,6 +20,7 @@ export default function Home() {
     const { user, logout } = useAuth();
 
     const [notes, setNotes] = useState<Note[]>([]);
+    const [searchText, setSearchText] = useState('');
 
     // Load the logged-in user's notes
     const loadNotes = async () => {
@@ -47,15 +49,23 @@ export default function Home() {
         try {
             await deleteNote(id);
 
-            // Remove the deleted note from the screen
             setNotes((currentNotes) =>
                 currentNotes.filter((note) => note.id !== id)
             );
-
         } catch (error) {
             console.log('Error deleting note:', error);
         }
     };
+
+    // Search notes by title or content
+    const filteredNotes = notes.filter((note) => {
+        const search = searchText.toLowerCase();
+
+        return (
+            note.title.toLowerCase().includes(search) ||
+            note.content.toLowerCase().includes(search)
+        );
+    });
 
     // Logout
     const handleLogout = async () => {
@@ -86,16 +96,29 @@ export default function Home() {
                 <Text style={styles.addButtonText}>+ Add New Note</Text>
             </TouchableOpacity>
 
-            {notes.length === 0 ? (
+            {/* Search bar */}
+            <TextInput
+                style={styles.searchInput}
+                placeholder="Search your notes..."
+                value={searchText}
+                onChangeText={setSearchText}
+            />
+
+            {filteredNotes.length === 0 ? (
                 <View style={styles.emptyContainer}>
-                    <Text style={styles.emptyTitle}>No notes yet</Text>
+                    <Text style={styles.emptyTitle}>
+                        {searchText ? 'No matching notes' : 'No notes yet'}
+                    </Text>
+
                     <Text style={styles.emptyText}>
-                        Start by adding your first note.
+                        {searchText
+                            ? 'Try searching with another word.'
+                            : 'Start by adding your first note.'}
                     </Text>
                 </View>
             ) : (
                 <FlatList
-                    data={notes}
+                    data={filteredNotes}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                         <View style={styles.noteCard}>
@@ -178,13 +201,14 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 10,
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: 15
     },
     addButtonText: {
         color: '#FFFFFF',
         fontSize: 16,
         fontWeight: 'bold'
     },
+
     emptyContainer: {
         flex: 1,
         justifyContent: 'center',
